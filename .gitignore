@@ -1,0 +1,11 @@
+# Don't track content form these folders
+docs/
+input_files/
+output_files/
+.ipynb_checkpoints/
+
+# Don't track these files 
+*s4
+*scn
+*gz
+
