@@ -1,16 +1,13 @@
-#!/usr/bin/python3
-
-# extracts s4 data from scn files in GPS LISN stations
-
+# Extracts s4 data from scn files in GPS LISN stations
 import glob, datetime
 
 yearList= ["21"]
-monthList = ["05"]
-dayList = ["07","14","15","16","29"]
-station= "cuz"
+monthList = ["08"]
+dayList = ["26"] #["07","14","15","16","29"]
+station= "puc"
 
-inPath= "/home/cesar/Documents/python/plotS4/scn_data_in/" +station+"/"
-outPath="/home/cesar/Documents/python/plotS4/scn_data_out/"+station+"/"
+inPath = "/home/luis/Desktop/Proyects_Files/LISN/GPSs/Tareas/Resend_SCNfiles/input_files/"
+outPath = "/home/luis/Desktop/Proyects_Files/LISN/GPSs/Tareas/Resend_SCNfiles/output_files/"
 
 firstRun=1   # equal to 1 when the script first run
 correctDay = 0
