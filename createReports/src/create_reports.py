@@ -77,11 +77,11 @@ def create_reports():
     for station_path in list_stations:
         station_name = station_path[-5:-1] # e.g. 'lhyo'
         f = open(output_files_path + "reporte_" + station_name + ".txt", 'w')
-        f.write("GPS files report - LISN network \n")
-        f.write("------------------------------- \n")
+        f.write("GPS files report - LISN network\n")
+        f.write("-------------------------------\n")
         f.write("Station: " + station_name + "\n")
-        f.write("File type: " + data_type + "\n")
-        f.write("------------------------------- \n")
+        f.write("File_type: " + data_type + "\n")
+        f.write("-------------------------------\n")
         #
         # Create the year list 
         #new_path = input_files_path + station_name + "/"
@@ -118,13 +118,13 @@ def create_reports():
                     else:
                         status_files.append(str(0))
 
-                status_files2 = ",".join(status_files) # create a single string 
+                status_files2 = " ".join(status_files) # create a single string 
                 # write on status file
                 f.write(month_name + "\n")
                 f.write(status_files2 + "\n")
         
         f.write("\n") 
-        f.write("-------------------------------------------- \n")
+        f.write("***\n")
         f.write("File generated on: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + " UTC-5")    
         f.close()
     
