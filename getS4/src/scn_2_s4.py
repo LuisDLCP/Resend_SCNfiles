@@ -10,7 +10,7 @@
 import os, glob, datetime
 
 # Declare input and output paths 
-root_path = "/home/luis/Desktop/Proyects_Files/LISN/GPSs/Tareas/Resend_SCNfiles/"
+root_path = "/home/luis/Desktop/Proyects_Files/LISN/GPSs/Tareas/Resend_SCNfiles/getS4/"
 input_files_path = root_path + "input_files/data_set/"
 input_files_path_op = root_path + "input_files/data_procesada/"
 output_files_path = root_path + "output_files/"
@@ -41,6 +41,7 @@ def getS4(files_group_name):
 			print("Processing:",scnFile)
 			inf=open(scnFile,"r")	# open scn file to process
 			fileLines = inf.readlines()
+			i = 0
 			for line in fileLines:   # Sweeps all lines in current scn file
 				finalLine=[]
 				line1 = line.strip("\n").split(" ")  # Removes CR and creates a list with elements in the line
@@ -65,18 +66,25 @@ def getS4(files_group_name):
 					line1=line1[1:]
 					[finalLine.append(int(x)) for x in line1 if x != ""]  # Removes all empty elements ("")
 					yearf="%.2d"%finalLine[0]   # get year
-					doyf=datetime.datetime.strptime(yearf+" "+"%.2d"%finalLine[1]+" "+"%.2d"%finalLine[2],"%y %m %d").strftime("%j")   # get doy from month year extracted from file
+					try:
+						doyf=datetime.datetime.strptime(yearf+" "+"%.2d"%finalLine[1]+" "+"%.2d"%finalLine[2],"%y %m %d").strftime("%j")   # get doy from month year extracted from file
+					except:
+						print("Missing or wrong information on line " + str(i+1) + ". Ignoring such file!")
+						break
 					if doyf==doyrequested:	
 						correctDay=1
 					else:	
 						correctDay=0
 					second=str(finalLine[3])   # get seconds
+				
 				else:
 					[finalLine.append(float(x)) for x in line1 if x != ""]  # Removes all empty elements ("")			
 					azimuthList.append(str(finalLine[0]))	# get azimuth
 					elevationList.append(str(finalLine[1]))	# get elevation
 					s4List.append(str(finalLine[2]))	# get s4
 					prnList.append(str(int(finalLine[11])))	# get prn
+				
+				i += 1
 
 		archivo.close()
 	else:
@@ -89,6 +97,7 @@ def main():
 	# Get unique values
 	list_input_files2 = [archivo[:-11] for archivo in list_input_files1] 
 	list_input_files2 = list(set(list_input_files2)) # e.g. ~/dir/210826
+	list_input_files2.sort()
 	
 	if len(list_input_files2) > 0:
 		for files_group in list_input_files2:
